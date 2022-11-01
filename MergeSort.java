@@ -1,66 +1,72 @@
-/*
-https://javatutoring.com/merge-sort-java/
-*/
 
-public class MergeSort {
+import java.util.Scanner;
 
-	public static void merge(int a[], int l, int m, int h) {
-		int i, j, c = l;
-		int b[] = new int[h + 1];
+public class Merge {
 
-		for (i = l, j = m + 1; i <= m && j <= h; c++) {
+	//This method will merge the elements
+	
+	public static void merge(int inputArray[], int lowerlimit, int mid, int higherlimit) {
+		int i, j, c = lowerlimit;
+		int tempArray[] = new int[higherlimit + 1];
 
-			if (a[i] <= a[j])
-				b[c] = a[i++];
+		for (i = lowerlimit, j = mid + 1; i <= mid && j <= higherlimit; c++) {
+
+			if (inputArray[i] <= inputArray[j])
+				tempArray[c] = inputArray[i++];
 			else
-				b[c] = a[j++];
+				tempArray[c] = inputArray[j++];
 		}
-		while (i <= m)
-			b[c++] = a[i++];
+		while (i <= mid)
+			tempArray[c++] = inputArray[i++];
 
-		while (j <= h)
-			b[c++] = a[j++];
+		while (j <= higherlimit)
+			tempArray[c++] = inputArray[j++];
 
-		for (i = l; i <= h; i++)
-			a[i] = b[i];
+		for (i = lowerlimit; i <= higherlimit; i++)
+			inputArray[i] = tempArray[i];
 	}
 
-	public static void Sort(int a[], int l, int h) {
-		if (l < h) {
-			int m = (l + h) / 2;
-			Sort(a, l, m);
-			Sort(a, m + 1, h);
-			merge(a, l, m, h);
+	//This method sorts the elements in array
+	
+	public static void Sort(int inputArray[], int lowerlimit, int higherlimit) {
+		if (lowerlimit < higherlimit) {
+			int mid = (lowerlimit + higherlimit) / 2;
+			Sort(inputArray, lowerlimit, mid);
+			Sort(inputArray, mid + 1, higherlimit);
+			merge(inputArray, lowerlimit, mid, higherlimit);
 
 		}
 
 	}
 
-	public static void printarray(int a[]) {
-		for (int i = 0; i < a.length; i++) {
+	//This method is used to print elements in array
+	
+	public static void printarray(int inputArray[]) {
+		for (int i = 0; i < inputArray.length; i++) {
 
-			System.out.print(a[i] + "  ");
+			System.out.print(inputArray[i] + "  ");
 		}
 
 	}
 
 	public static void main(String[] args) {
-		int n, res, i;
-		Scanner s = new Scanner(System.in);
-		System.out.println("Enter number of elements in the array:");
-		n = s.nextInt();
-		int a[] = new int[n];
-		System.out.println("Enter " + n + " elements ");
-		for (i = 0; i < n; i++) {
-			a[i] = s.nextInt();
+		int lenght;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter number of elements in the array:");
+		lenght = sc.nextInt();
+		int inputArray[] = new int[lenght];
+		System.out.println("Enter " + lenght + " elements ");
+		for (int i = 0; i < lenght; i++) {
+			inputArray[i] = sc.nextInt();
 		}
 
 		System.out.println("elements in array ");
-		printarray(a);
-		Sort(a, 0, n - 1);
+		printarray(inputArray);
+
+		Sort(inputArray, 0, lenght - 1);
 		System.out.println("\nelements after sorting");
-		printarray(a);
+		printarray(inputArray);
 
 	}
-
 }
+
